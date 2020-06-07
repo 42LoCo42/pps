@@ -11,16 +11,18 @@ rad2deg = (/ arc)
 
 angleBetween2P :: (Ord a, Floating a) => a -> a -> a -> a -> a
 angleBetween2P x1 y1 x2 y2
-  | dx < 0    = raw + pi
-  | dy < 0    = raw + pi*2
+  | dx < 0 = raw + pi
+  | dy < 0 = raw + pi * 2
   | otherwise = raw
   where
-    raw = atan $ dy/dx
-    dx  = x2 - x1
-    dy  = y2 - y1
+    raw = atan $ dy / dx
+    dx = x2 - x1
+    dy = y2 - y1
 
-norm :: (Ord a, Floating a) => a -> a
-norm a
-  | a >= 2*pi = norm (a - 2*pi)
-  | a < 0     = norm (a + 2*pi)
-  | otherwise = a
+norm :: Double -> Double
+norm a = a - tp * toEnum (floor (a / tp))
+  where
+    tp = 2 * pi
+
+dtf :: (Real a, Fractional b) => a -> b
+dtf = fromRational . toRational
